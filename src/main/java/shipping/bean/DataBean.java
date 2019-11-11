@@ -17,6 +17,7 @@ import javax.ejb.Singleton;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
 
 @Singleton
 @Getter
@@ -98,38 +99,31 @@ public class DataBean {
 
     public void calcDriversNumbers() {
         logger.debug("DataBean calcDriversNumbers.");
+        numberOfDrivers = drivers.size();
 
-//        for (Driver driver : drivers) {
-//            if (driver.getStatus().contains("rest")) {
-//                numberOfFreeDrivers++;
-//            } else {
-//                numberOfDriversWithOrder++;
-//            }
-//        }
-//        numberOfDrivers = drivers.size();
-        numberOfDrivers =  10;
+        for (Driver driver : drivers) {
+            if (driver.getOrder() != null) {
+                numberOfDriversWithOrder++;
+            } else {
+                numberOfFreeDrivers++;
+            }
+        }
     }
 
     public void calcWagonsNumbers() {
         logger.debug("DataBean calcWagonsNumbers.");
+        numberOfWagons = wagons.size();
+        List<Order> wagonsWithOrder = orders.stream().filter(order -> order.getWagon() != null).collect(Collectors.toList());
+        numberOfWagonsWithOrder = wagonsWithOrder.size();
+        numberOfFreeWagons = numberOfWagons - numberOfWagonsWithOrder;
+        for (Wagon wagon : wagons) {
 
-//        for (Wagon wagon : wagons) {
-////            if (wagon.getOrder()) {
-////                numberOfFreeWagons++;
-////                continue;
-////            }
-//            if (wagon.getStatus().contains("faulty")) {
-//                numberOfFaultyWagons++;
-//                continue;
-//            }
-//            if (wagon.getStatus().contains("serviceable")) {
-//                numberOfServiceableWagons++;
-//                continue;
-//            }
-//       //     numberOfWagonsWithOrder++;
-//        }
-//        numberOfWagons = wagons.size();
-        numberOfWagons= 10;
+            if (wagon.getStatus().equals("faulty")) {
+                numberOfFaultyWagons++;
+            } else {
+                numberOfServiceableWagons++;
+            }
+        }
     }
 
 }

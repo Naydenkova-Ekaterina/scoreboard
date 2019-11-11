@@ -21,4 +21,6 @@ public class Driver {
 
     private String workedHours;
 
+    private String order;
+
 }

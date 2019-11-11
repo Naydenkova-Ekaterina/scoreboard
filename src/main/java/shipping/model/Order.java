@@ -15,4 +15,6 @@ public class Order {
 
     private boolean isCompleted;
 
+    private String wagon;
+
 }
