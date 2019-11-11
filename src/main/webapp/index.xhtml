@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Logiweb scoreboard</title>
+</h:head>
+<f:view>
+    <div class="container">
+        <div class="content">
+            <h:form>
+                <p:poll interval="1" listener="#{scoreboardBean.update}" update="cargoes wagons drivers orders"/>
+            </h:form>
+            <h1>Logiweb scoreboard</h1>
+
+            <h4>Wagons</h4>
+            <div>
+            <h:form id="wagonsNumber">
+                <ul>
+                    <li>Number of all wagons: #{scoreboardBean.numberOfWagons}</li>
+                    <li>Number of free wagons: #{scoreboardBean.numberOfFreeWagons}</li>
+                    <li>Number of wagons with order: #{scoreboardBean.numberOfWagonsWithOrder}</li>
+                    <li>Number of serviceable wagons: #{scoreboardBean.numberOfServiceableWagons}</li>
+                    <li>Number of faulty wagons: #{scoreboardBean.numberOfFaultyWagons}</li>
+                </ul>
+            </h:form>
+            </div>
+
+            <div>
+            <h4>Drivers</h4>
+            <h:form id="driversNumber">
+                <ul>
+                    <li>Number of all drivers: #{scoreboardBean.numberOfDrivers}</li>
+                    <li>Number of free drivers: #{scoreboardBean.numberOfFreeDrivers}</li>
+                    <li>Number of drivers with order: #{scoreboardBean.numberOfDriversWithOrder}</li>
+                </ul>
+            </h:form>
+            </div>
+
+            </div>
+
+        </div>
+
+        <h4>Wagons</h4>
+        <h:dataTable id="wagons" value="#{scoreboardBean.wagons}" var="wagon">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Register number"/>
+                </f:facet>
+                <h:outputText value="#{wagon.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Capacity"/>
+                </f:facet>
+                <h:outputText value="#{wagon.capacity}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Shift size"/>
+                </f:facet>
+                <h:outputText value="#{wagon.shiftSize}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Status"/>
+                </f:facet>
+                <h:outputText value="#{wagon.status}"/>
+            </h:column>
+
+        </h:dataTable>
+
+        <h4>Cargoes</h4>
+        <h:dataTable id="cargoes" value="#{scoreboardBean.cargoes}" var="cargo">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Id"/>
+                </f:facet>
+                <h:outputText value="#{cargo.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{cargo.name}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Status"/>
+                </f:facet>
+                <h:outputText value="#{cargo.status}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Weight"/>
+                </f:facet>
+                <h:outputText value="#{cargo.weight}"/>
+            </h:column>
+
+        </h:dataTable>
+
+        <h4>Drivers</h4>
+        <h:dataTable id="drivers" value="#{scoreboardBean.drivers}" var="driver">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Id"/>
+                </f:facet>
+                <h:outputText value="#{driver.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Name"/>
+                </f:facet>
+                <h:outputText value="#{driver.name}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Surname"/>
+                </f:facet>
+                <h:outputText value="#{driver.surname}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Status"/>
+                </f:facet>
+                <h:outputText value="#{driver.status}"/>
+            </h:column>
+
+        </h:dataTable>
+
+        <h4>Orders</h4>
+        <h:dataTable id="orders" value="#{scoreboardBean.orders}" var="order">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Id"/>
+                </f:facet>
+                <h:outputText value="#{order.id}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Is completed"/>
+                </f:facet>
+                <h:outputText value="#{order.completed}"/>
+            </h:column>
+
+        </h:dataTable>
+    
+
+    </f:view>
+</html>
